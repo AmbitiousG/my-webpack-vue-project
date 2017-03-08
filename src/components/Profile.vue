@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-      <button @click="lazyLoadTest">Async Load</button>
+      <el-button @click="lazyLoadTest">Async Load</el-button>
       <div class="row">
         <div class="cell">Name:</div>
         <div class="cell">{{name}}</div>
