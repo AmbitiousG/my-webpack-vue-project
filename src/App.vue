@@ -16,7 +16,7 @@
       </el-menu>
     </div>
     <div class="mc-right content">
-      <!-- <view-router></view-router> -->
+      <add-item></add-item>
     </div>
   </div>
 </template>
@@ -53,12 +53,18 @@
 
 
 <script>
+import AddItem from './components/AddItem.vue'
+
 export default {
   name: 'app',
+  components: {
+    AddItem
+  },
   methods: {
     showProfile () {
       this.$router.push({name: 'Profile'})
     }
+    // render: h => h(AddItem)
   }
 }
 </script>
