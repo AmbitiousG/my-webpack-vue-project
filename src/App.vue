@@ -16,7 +16,7 @@
       </el-menu>
     </div>
     <div class="mc-right content">
-      <view-router></view-router>
+      <!-- <view-router></view-router> -->
     </div>
   </div>
 </template>
@@ -44,6 +44,9 @@
   }
   .mc-nav-wrapper{
     min-height: 100%;
+  }
+  .mc-nav{
+    height: 100%;
   }
 </style>
 
