@@ -3,7 +3,6 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span style="line-height: 36px;">新的记账项目</span>
-        <el-button style="float: right;" type="primary" @click="reset">清除</el-button>
       </div>
       <el-form :model="item" label-width="80px">
         <el-form-item label="分类">
@@ -14,20 +13,31 @@
         </el-form-item>
         <el-form-item label="收支类型">
           <el-radio-group v-model="item.itemType">
-            <el-radio label="收入" value="1"></el-radio>
-            <el-radio label="支出" value="2"></el-radio>
+            <el-radio :label="1">支出</el-radio>
+            <el-radio :label="2">收入</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="金额">
           <el-input v-model.number="item.amount" type="number"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="备忘"></el-form-item> -->
+        <el-form-item label="时间">
+          <el-date-picker v-model="item.datetime" type="datetime" placeholder="选择日期时间"></el-date-picker>
+        </el-form-item>
+        <el-form-item label="备忘">
+          <el-input type="textarea" v-model="item.desc"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">立即创建</el-button>
+          <el-button style="float: right;" type="danger" @click="reset">清除</el-button>
+        </el-form-item>
       </el-form>
     </el-card>
   </div>
 </template>
 
 <script>
+// import _ from 'lodash'
+
 export default {
   // name: 'AddItem',
   props: {
@@ -38,7 +48,9 @@ export default {
           category: null,
           itemType: 1,
           amount: 0,
-          memo: ''
+          memo: '',
+          desc: '',
+          datetime: Date.now()
         }
       }
     }
@@ -49,6 +61,9 @@ export default {
     }
   },
   methods: {
+    onSubmit () {
+      alert(this.item)
+    },
     reset () {
       this.item = {
         category: null,
@@ -63,9 +78,9 @@ export default {
 
 <style lang="css" scoped>
 .wrapper{
-  width: 800px;
-  height: 500px;
-  margin: auto;
+  width: 480px;
+  /*height: 500px;*/
+  margin: 20px auto 0;
 }
 .text {
   font-size: 14px;
