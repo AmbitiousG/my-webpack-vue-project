@@ -12,7 +12,7 @@
         <el-menu-item index="1">Home</el-menu-item>
         <el-menu-item index="2">Records</el-menu-item>
         <el-menu-item index="3">Graph</el-menu-item>
-        <el-menu-item index="4">About</el-menu-item>
+        <el-menu-item index="4">About 2</el-menu-item>
       </el-menu>
     </div>
     <div class="mc-right content">
