@@ -49,6 +49,9 @@ export default {
     }
   },
   methods: {
+    tComplete(){
+
+    },
     reset () {
       this.item = {
         category: null,
@@ -63,9 +66,11 @@ export default {
 
 <style lang="css" scoped>
 .wrapper{
-  width: 800px;
-  height: 500px;
-  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 .text {
   font-size: 14px;
@@ -86,5 +91,6 @@ export default {
 
 .box-card {
   width: 480px;
+  
 }
 </style>

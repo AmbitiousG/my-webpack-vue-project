@@ -2,13 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import Profile from '@/components/Profile'
+// import AddItem from '@/components/AddItem'
 
 Vue.use(Router)
 
 export default new Router({
   // mode: 'history',
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'Hello',
       component: Hello
@@ -17,15 +17,20 @@ export default new Router({
       path: '/profile',
       name: 'Profile',
       component: Profile,
-      children: [
-        {
-          path: 'async',
-          name: 'AsyncTest',
-          component (resolve) {
-            require(['@/components/AsyncTest'], resolve)
-          }
+      children: [{
+        path: 'async',
+        name: 'AsyncTest',
+        component(resolve) {
+          require(['@/components/AsyncTest'], resolve)
         }
-      ]
+      }]
+    },
+    {
+      path: '/new',
+      name: 'AddItem',
+      component(resolve) {
+        require(['@/components/AddItem'], resolve)
+      }
     }
   ]
 })
