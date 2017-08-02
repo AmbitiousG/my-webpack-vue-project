@@ -12,7 +12,8 @@
         <el-menu-item index="1">Home</el-menu-item>
         <el-menu-item index="2">Records</el-menu-item>
         <el-menu-item index="3">Graph</el-menu-item>
-        <el-menu-item index="4">About</el-menu-item>
+        <el-menu-item index="4">List</el-menu-item>
+        <el-menu-item index="5">About 2</el-menu-item>
       </el-menu>
     </div>
     <div class="mc-right content">
@@ -49,6 +50,7 @@ body {
 
 .mc-right {
   flex: 1 1 100%;
+  overflow: hidden;
 }
 
 .mc-nav-wrapper {
