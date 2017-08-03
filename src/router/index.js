@@ -31,6 +31,13 @@ export default new Router({
       component(resolve) {
         require(['@/components/AddItem'], resolve)
       }
+    },
+    {
+      path: '/comingsoon',
+      name: 'ComingSoon',
+      component(resolve) {
+        require(['@/components/ComingSoon'], resolve)
+      }
     }
   ]
 })

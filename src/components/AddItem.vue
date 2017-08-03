@@ -1,10 +1,7 @@
 <template>
-  <div class="wrapper">
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span style="line-height: 36px;">新的记账项目</span>
-      </div>
-      <el-form :model="item" label-width="80px">
+  <el-form :model="item" label-width="80px" style="height: 100%;">
+    <div class="wrapper row column">
+      <div class="cell basis100 scroll">
         <el-form-item label="分类">
           <el-select v-model="item.category">
             <el-option label="交通" value="1"></el-option>
@@ -26,22 +23,23 @@
         <el-form-item label="备忘">
           <el-input type="textarea" v-model="item.desc"></el-input>
         </el-form-item>
+      </div>
+      <div class="cell nogrow opt">
         <el-form-item>
           <el-button type="primary" @click="onSubmit">立即创建</el-button>
           <el-button style="float: right;" type="danger" @click="reset">清除</el-button>
         </el-form-item>
-      </el-form>
-    </el-card>
-  </div>
+      </div>
+    </div>
+  </el-form>
 </template>
-
 <script>
 export default {
   // name: 'AddItem',
   props: {
     item: {
       type: Object,
-      default: function () {
+      default: function() {
         return {
           category: null,
           itemType: 1,
@@ -53,16 +51,16 @@ export default {
       }
     }
   },
-  data () {
+  data() {
     return {
       // item:
     }
   },
   methods: {
-    onSubmit () {
+    onSubmit() {
       alert(this.item)
     },
-    reset () {
+    reset() {
       this.item = {
         category: null,
         itemType: 1,
@@ -72,16 +70,46 @@ export default {
     }
   }
 }
-</script>
 
+</script>
 <style lang="css" scoped>
-.wrapper{
+.row {
   display: flex;
-  justify-content: center;
-  align-items: center;
+}
+
+.row.column{
+  flex-direction: column;
+}
+
+.cell{
+  flex: 1 auto;
+}
+
+.cell.basis100{
+  flex-basis: 100%;
+}
+
+.cell.nogrow{
+  flex-grow: 0;
+}
+
+.cell.scroll{
+  overflow: auto;
+}
+
+.wrapper{
   width: 100%;
   height: 100%;
 }
+
+.wrapper .cell{
+  padding: 10px;
+}
+
+.wrapper .opt > div{
+  margin-bottom: 0;
+}
+
 .text {
   font-size: 14px;
 }
@@ -92,15 +120,16 @@ export default {
 
 .clearfix:before,
 .clearfix:after {
-    display: table;
-    content: "";
+  display: table;
+  content: "";
 }
+
 .clearfix:after {
-    clear: both
+  clear: both
 }
 
 .box-card {
-  width: 480px;
-  
+  /*width: 480px;*/
 }
+
 </style>

@@ -10,10 +10,11 @@
     <div class="mc-left nav-wrapper">
       <el-menu @select="toggleView" default-active="1" class="mc-nav">
         <el-menu-item index="1">Home</el-menu-item>
-        <el-menu-item index="2">Records</el-menu-item>
-        <el-menu-item index="3">Graph</el-menu-item>
-        <el-menu-item index="4">List</el-menu-item>
-        <el-menu-item index="5">About</el-menu-item>
+        <el-menu-item index="2">New Record</el-menu-item>
+        <el-menu-item index="3">Records</el-menu-item>
+        <el-menu-item index="4">Graph</el-menu-item>
+        <el-menu-item index="5">List</el-menu-item>
+        <el-menu-item index="6">About</el-menu-item>
       </el-menu>
     </div>
     <div class="mc-right content">
@@ -93,6 +94,9 @@ export default {
         this.$router.push({ name: 'Hello' })
       } else if (index == "2") {
         this.$router.push({ name: 'AddItem' });
+      }
+      else{
+        this.$router.push({ name: 'ComingSoon' });
       }
     }
     // render: h => h(AddItem)
