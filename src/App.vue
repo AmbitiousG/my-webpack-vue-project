@@ -13,7 +13,7 @@
         <el-menu-item index="2">Records</el-menu-item>
         <el-menu-item index="3">Graph</el-menu-item>
         <el-menu-item index="4">List</el-menu-item>
-        <el-menu-item index="5">About 2</el-menu-item>
+        <el-menu-item index="5">About</el-menu-item>
       </el-menu>
     </div>
     <div class="mc-right content">
