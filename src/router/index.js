@@ -3,11 +3,9 @@
 import Hello from '@/components/Hello'
 import Profile from '@/components/Profile'
 // import AddItem from '@/components/AddItem'
-var Vue2 = require('vue');
-var Vue = require('vue').default;
-var VueRouter = require('vue-router').default;
-Vue.use(VueRouter)
-
+var Vue = require('vue').default || window.Vue;
+var VueRouter = require('vue-router').default || window.VueRouter;
+!window.Vue && Vue.use(VueRouter)
 export default new VueRouter({
   mode: 'history',
   routes: [{
