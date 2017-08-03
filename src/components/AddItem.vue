@@ -34,6 +34,7 @@
   </el-form>
 </template>
 <script>
+var _ = require('lodash')
 export default {
   // name: 'AddItem',
   props: {
@@ -58,15 +59,15 @@ export default {
   },
   methods: {
     onSubmit() {
-      alert(this.item)
+      alert(_(this.item).pick(['itemType', 'amount']).values().value());
     },
     reset() {
-      this.item = {
-        category: null,
-        itemType: 1,
-        amount: 0,
-        memo: ''
-      }
+      // this.item = {
+      //   category: null,
+      //   itemType: 1,
+      //   amount: 0,
+      //   memo: ''
+      // }
     }
   }
 }

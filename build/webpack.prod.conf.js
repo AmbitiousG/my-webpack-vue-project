@@ -6,6 +6,7 @@ var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
@@ -62,6 +63,11 @@ var webpackConfig = merge(baseWebpackConfig, {
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
+    }),
+    new HtmlWebpackIncludeAssetsPlugin({
+      assets: process.env.NODE_ENV === 'production' ? [{path: 'https://cdn.jsdelivr.net/g/lodash@4.17.4', type: 'js'}] : [],
+      append: false,
+      publicPath: '',
     }),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({

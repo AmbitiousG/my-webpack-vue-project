@@ -1,7 +1,15 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
+var externals = {}
+if (process.env.NODE_ENV === 'production') {
+  externals = {
+    lodash: '_',
+    // "vue": Vue,
+  }
+}
 
 module.exports = {
+  externals,
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
