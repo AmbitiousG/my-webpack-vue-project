@@ -1,12 +1,14 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+// import Vue from 'vue'
+// import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import Profile from '@/components/Profile'
 // import AddItem from '@/components/AddItem'
+var Vue2 = require('vue');
+var Vue = require('vue').default;
+var VueRouter = require('vue-router').default;
+Vue.use(VueRouter)
 
-Vue.use(Router)
-
-export default new Router({
+export default new VueRouter({
   mode: 'history',
   routes: [{
       path: '/',

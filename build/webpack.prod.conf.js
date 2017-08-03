@@ -65,7 +65,9 @@ var webpackConfig = merge(baseWebpackConfig, {
       chunksSortMode: 'dependency'
     }),
     new HtmlWebpackIncludeAssetsPlugin({
-      assets: process.env.NODE_ENV === 'production' ? [{path: 'https://cdn.jsdelivr.net/g/lodash@4.17.4', type: 'js'}] : [],
+      assets: process.env.NODE_ENV === 'production' ? [
+      {path: 'https://cdn.jsdelivr.net/g/lodash@4.17.4,vue@2.3.2,vue.resource@1.3.1,vue.router@2.5.3,vuex@2.3.0', type: 'js'}
+      ] : [],
       append: false,
       publicPath: '',
     }),

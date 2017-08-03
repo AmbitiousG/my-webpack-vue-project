@@ -4,7 +4,9 @@ var externals = {}
 if (process.env.NODE_ENV === 'production') {
   externals = {
     lodash: '_',
-    // "vue": Vue,
+    vue: 'Vue',
+    vuex: 'Vuex',
+    'vue-router': 'VueRouter',
   }
 }
 
