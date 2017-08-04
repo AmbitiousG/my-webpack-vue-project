@@ -4,6 +4,7 @@ var config = require('../config')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 // add hot-reload related code to entry chunks
@@ -29,6 +30,13 @@ module.exports = merge(baseWebpackConfig, {
       filename: 'index.html',
       template: 'index.html',
       inject: true
+    }),
+    new HtmlWebpackIncludeAssetsPlugin({
+      assets: [
+      'https://cdn.jsdelivr.net/npm/element-ui@1.4.1/lib/theme-default/index.css',
+      ],
+      append: false,
+      publicPath: '',
     }),
     new FriendlyErrorsPlugin()
   ]

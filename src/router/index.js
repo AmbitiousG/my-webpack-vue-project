@@ -1,11 +1,12 @@
-// import Vue from 'vue'
-// import Router from 'vue-router'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 import Hello from '@/components/Hello'
 import Profile from '@/components/Profile'
 // import AddItem from '@/components/AddItem'
-var Vue = require('vue').default || window.Vue;
-var VueRouter = require('vue-router').default || window.VueRouter;
-!window.Vue && Vue.use(VueRouter)
+// var Vue = window.Vue || require('vue').default;
+// var VueRouter = window.VueRouter || require('vue-router').default;
+
+Vue.use(VueRouter)
 export default new VueRouter({
   mode: 'history',
   routes: [{
@@ -28,9 +29,10 @@ export default new VueRouter({
     {
       path: '/new',
       name: 'AddItem',
-      component(resolve) {
-        require(['@/components/AddItem'], resolve)
-      }
+      // component(resolve) {
+      //   require(['@/components/AddItem'], resolve)
+      // },
+      component: () => import('@/components/AddItem')
     },
     {
       path: '/comingsoon',
