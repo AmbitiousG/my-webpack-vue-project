@@ -35,6 +35,11 @@ export default new VueRouter({
       component: () => import('@/components/AddItem')
     },
     {
+      path:'/records',
+      name: 'Records',
+      component: () => import('@/components/Records')
+    },
+    {
       path: '/comingsoon',
       name: 'ComingSoon',
       component(resolve) {

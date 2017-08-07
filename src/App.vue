@@ -34,6 +34,29 @@ body {
   padding: 0;
 }
 
+.row {
+  display: flex;
+}
+
+.row.column{
+  flex-direction: column;
+}
+
+.cell{
+  flex: 1 auto;
+}
+
+.cell.basis100{
+  flex-basis: 100%;
+}
+
+.cell.nogrow{
+  flex-grow: 0;
+}
+
+.cell.scroll{
+  overflow: auto;
+}
 .mc-main {
   width: 100%;
   height: 100%;
@@ -94,6 +117,8 @@ export default {
         this.$router.push({ name: 'Hello' })
       } else if (index == "2") {
         this.$router.push({ name: 'AddItem' });
+      } else if (index == "3") {
+        this.$router.push({ name: 'Records' });
       }
       else{
         this.$router.push({ name: 'ComingSoon' });

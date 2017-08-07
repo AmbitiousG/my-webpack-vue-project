@@ -74,29 +74,6 @@ export default {
 
 </script>
 <style lang="css" scoped>
-.row {
-  display: flex;
-}
-
-.row.column{
-  flex-direction: column;
-}
-
-.cell{
-  flex: 1 auto;
-}
-
-.cell.basis100{
-  flex-basis: 100%;
-}
-
-.cell.nogrow{
-  flex-grow: 0;
-}
-
-.cell.scroll{
-  overflow: auto;
-}
 
 .wrapper{
   width: 100%;
