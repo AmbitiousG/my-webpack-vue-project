@@ -2,9 +2,9 @@
   <div class="wrapper">
     <div v-for="item in list" class="row">
       <div class="cell nogrow title">Name:</div>
-      <div class="cell">{{item.name}}</div>
+      <div class="cell basis100">{{item.name}}</div>
       <div class="cell nogrow title">Value:</div>
-      <div class="cell">{{item.value}}</div>
+      <div class="cell basis100">{{item.value}}</div>
     </div>
   </div>
 </template>
@@ -21,9 +21,8 @@ export default {
   mounted() {
     this.$http.post('/api/getList').then(response=> {
       let data = response.body;
-      debugger;
+      this.list = data;
     }, response=> {
-      debugger;
       //error cb
     })
   }

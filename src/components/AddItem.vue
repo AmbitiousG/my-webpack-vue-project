@@ -59,7 +59,11 @@ export default {
   },
   methods: {
     onSubmit() {
-      alert(_(this.item).pick(['itemType', 'amount']).values().value());
+      // alert(_(this.item).pick(['itemType', 'amount']).values().value());
+      this.$https.post('/api/save', {item: this.item}).then(response => {
+        let res = response.body;
+        debugger;
+      })
     },
     reset() {
       // this.item = {
