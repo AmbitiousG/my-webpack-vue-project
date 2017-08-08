@@ -68,26 +68,26 @@ export default {
   methods: {
     checkData() {
       if (!this.item.category) {
-        this.$notify({
+        this.$message({
           message: '类型不能为空！',
           type: 'warning',
-          duration: 3000
+          // duration: 3000
         });
         return false;
       }
       if (this.item.amount == 0) {
-        this.$notify({
+        this.$message({
           message: '金额不能为空！',
           type: 'warning',
-          duration: 3000
+          // duration: 3000
         });
         return false;
       }
       if (!this.item.desc) {
-        this.$notify({
+        this.$message({
           message: '描述不能为空！',
           type: 'warning',
-          duration: 3000
+          // duration: 3000
         });
         return false;
       }
@@ -98,12 +98,12 @@ export default {
         this.$http.post('/api/save', { item: this.item }).then(response => {
           let res = response.body;
           if(res.Success){
-            this.$notify({
+            this.$message({
               message:'新建成功！',
               type:'success',
-              duration: 3000
+              // duration: 3000
             });
-            this.reset();
+            // this.reset();
           }
         })
       }
