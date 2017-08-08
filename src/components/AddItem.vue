@@ -83,6 +83,14 @@ export default {
         });
         return false;
       }
+      if (!this.item.datetime) {
+        this.$message({
+          message: '时间不能为空！',
+          type: 'warning',
+          // duration: 3000
+        });
+        return false;
+      }
       if (!this.item.desc) {
         this.$message({
           message: '描述不能为空！',
