@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === 'production') {
     vuex: 'Vuex',
     'vue-router': 'VueRouter',
     'element-ui': 'ELEMENT',
-    VueResource: 'VueResource'
+    'vue-resource': 'VueResource'
   }
 }
 
