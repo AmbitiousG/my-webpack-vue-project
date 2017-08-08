@@ -1,11 +1,15 @@
 <template>
   <div class="wrapper">
-    <div v-for="item in list" class="row">
-      <div class="cell nogrow title">Name:</div>
-      <div class="cell basis100">{{item.name}}</div>
-      <div class="cell nogrow title">Value:</div>
-      <div class="cell basis100">{{item.value}}</div>
-    </div>
+    <!-- <template>
+      <el-table :data="records" height="100%" border style="width: 100%">
+        <el-table-column prop="date" label="日期" width="180">
+        </el-table-column>
+        <el-table-column prop="name" label="姓名" width="180">
+        </el-table-column>
+        <el-table-column prop="address" label="地址">
+        </el-table-column>
+      </el-table>
+    </template> -->
   </div>
 </template>
 <script>
@@ -19,10 +23,10 @@ export default {
     };
   },
   mounted() {
-    this.$http.post('/api/getList').then(response=> {
+    this.$http.post('/api/getList').then(response => {
       let data = response.body;
       this.list = data;
-    }, response=> {
+    }, response => {
       //error cb
     })
   }
@@ -30,7 +34,8 @@ export default {
 
 </script>
 <style lang="css" scoped>
-.cell.title{
+.cell.title {
   width: 80px;
 }
+
 </style>

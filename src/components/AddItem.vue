@@ -4,12 +4,13 @@
       <div class="cell basis100 scroll">
         <el-form-item label="分类">
           <el-select v-model="item.category">
-            <el-option label="交通" value="1"></el-option>
-            <el-option label="饮食" value="2"></el-option>
+            <!-- <el-option label="交通" value="1"></el-option>
+            <el-option label="饮食" value="2"></el-option> -->
+            <el-option v-for="category in categoryData" :label="category.CategoryName" :value="category.CategoryID" :key="category.CategoryID"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="收支类型">
-          <el-radio-group v-model="item.itemType">
+          <el-radio-group v-model="item.recordType">
             <el-radio :label="1">支出</el-radio>
             <el-radio :label="2">收入</el-radio>
           </el-radio-group>
@@ -20,8 +21,11 @@
         <el-form-item label="时间">
           <el-date-picker v-model="item.datetime" type="datetime" placeholder="选择日期时间"></el-date-picker>
         </el-form-item>
-        <el-form-item label="备忘">
+        <el-form-item label="详情">
           <el-input type="textarea" v-model="item.desc"></el-input>
+        </el-form-item>
+        <el-form-item label="备忘">
+          <el-input type="textarea" v-model="item.memo"></el-input>
         </el-form-item>
       </div>
       <div class="cell nogrow opt">
@@ -37,58 +41,98 @@
 var _ = require('lodash')
 export default {
   // name: 'AddItem',
-  props: {
-    item: {
-      type: Object,
-      default: function() {
-        return {
-          category: null,
-          itemType: 1,
-          amount: 0,
-          memo: '',
-          desc: '',
-          datetime: Date.now()
-        }
-      }
-    }
-  },
+  props: {},
   data() {
     return {
-      // item:
+      item: {
+        category: null,
+        recordType: 1,
+        amount: 0,
+        memo: '',
+        desc: '',
+        datetime: Date.now()
+      },
+      categoryData: [],
     }
   },
+  mounted() {
+    this.$http.post('api/getCategories').then(response => {
+      let res = response.body;
+      if (res.Categories && res.Categories.length > 0) {
+        this.categoryData = res.Categories;
+      } else {
+        //error
+      }
+    })
+  },
   methods: {
+    checkData() {
+      if (!this.item.category) {
+        this.$notify({
+          message: '类型不能为空！',
+          type: 'warning',
+          duration: 3000
+        });
+        return false;
+      }
+      if (this.item.amount == 0) {
+        this.$notify({
+          message: '金额不能为空！',
+          type: 'warning',
+          duration: 3000
+        });
+        return false;
+      }
+      if (!this.item.desc) {
+        this.$notify({
+          message: '描述不能为空！',
+          type: 'warning',
+          duration: 3000
+        });
+        return false;
+      }
+      return true;
+    },
     onSubmit() {
-      // alert(_(this.item).pick(['itemType', 'amount']).values().value());
-      this.$https.post('/api/save', {item: this.item}).then(response => {
-        let res = response.body;
-        debugger;
-      })
+      if (this.checkData()) {
+        this.$http.post('/api/save', { item: this.item }).then(response => {
+          let res = response.body;
+          if(res.Success){
+            this.$notify({
+              message:'新建成功！',
+              type:'success',
+              duration: 3000
+            });
+            this.reset();
+          }
+        })
+      }
     },
     reset() {
-      // this.item = {
-      //   category: null,
-      //   itemType: 1,
-      //   amount: 0,
-      //   memo: ''
-      // }
+      this.item = {
+        category: null,
+        recordType: 1,
+        amount: 0,
+        memo: '',
+        desc: '',
+        datetime: Date.now()
+      }
     }
   }
 }
 
 </script>
 <style lang="css" scoped>
-
-.wrapper{
+.wrapper {
   width: 100%;
   height: 100%;
 }
 
-.wrapper .cell{
+.wrapper .cell {
   padding: 10px;
 }
 
-.wrapper .opt > div{
+.wrapper .opt>div {
   margin-bottom: 0;
 }
 
