@@ -240,4 +240,26 @@ html, body {
 .menu-title {
   color: #888;
 }
+.row {
+  display: flex;
+}
+
+.row.column{
+  flex-direction: column;
+}
+
+.cell{
+  flex: 1 auto;
+}
+
+.cell.basis100{
+  flex-basis: 100%;
+}
+
+.cell.nogrow{
+  flex-grow: 0;
+}
+.cell.content{
+  padding: 5px;
+}
 </style>

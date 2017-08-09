@@ -3,7 +3,7 @@
     <div>
       <loading v-model="isLoading"></loading>
     </div>
-    <group v-if="!isLoading" label-width="2em" label-margin-right="2em" lable-align="right">
+    <group v-if="!isLoading" label-width="3em" label-margin-right="2em" lable-align="right">
       <button-tab v-model="item.recordType">
         <button-tab-item>支出</button-tab-item>
         <button-tab-item>收入</button-tab-item>
@@ -83,7 +83,7 @@ export default {
         this.categoryData = _.map(res.Categories, c => {
           return {
             name: c.CategoryName,
-            value: c.CategoryID
+            value: c.CategoryID.toString()
           }
         });
       } else {
@@ -127,7 +127,8 @@ export default {
       if (this.checkData()) {
         this.$http.post('/api/save', {
           item: _.assign({}, this.item, {
-            category: this.item.category[0]
+            category: this.item.category[0],
+            recordType: this.item.recordType + 1
           })
         }).then(response => {
           let res = response.body;
