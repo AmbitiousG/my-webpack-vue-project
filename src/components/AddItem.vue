@@ -1,11 +1,9 @@
 <template>
-  <el-form :model="item" label-width="80px" style="height: 100%;">
+  <!-- <el-form :model="item" label-width="80px" style="height: 100%;">
     <div class="wrapper row column">
       <div class="cell basis100 scroll">
         <el-form-item label="分类">
           <el-select v-model="item.category">
-            <!-- <el-option label="交通" value="1"></el-option>
-            <el-option label="饮食" value="2"></el-option> -->
             <el-option v-for="category in categoryData" :label="category.CategoryName" :value="category.CategoryID" :key="category.CategoryID"></el-option>
           </el-select>
         </el-form-item>
@@ -35,31 +33,92 @@
         </el-form-item>
       </div>
     </div>
-  </el-form>
+  </el-form> -->
+  <div>
+    <div>
+      <loading v-model="isLoading"></loading>
+    </div>
+    <group v-if="!isLoading" label-width="4.5em" label-margin-right="2em" lable-align="right">
+      <button-tab v-model="item.recordType">
+        <button-tab-item>支出</button-tab-item>
+        <button-tab-item>收入</button-tab-item>
+      </button-tab>
+      <popup-picker title="分类" show-name placeholder="请选择" :data="[categoryData]" v-model="item.category" value-text-align="left"></popup-picker>
+      <x-input title="金额" v-model="item.amount" type="number" required></x-input>
+      <datetime title="时间" v-model="item.datetime" format="YYYY-MM-DD HH:mm" required></datetime>
+      <x-textarea title="详情" v-model="item.desc" :max="200" :show-counter="false" :height="60" :rows="8" :cols="30"></x-textarea>
+      <x-textarea title="备忘" v-model="item.memo" :max="200" :show-counter="false" :height="60" :rows="8" :cols="30"></x-textarea>
+      <flexbox>
+        <flexbox-item>
+          <x-button type="primary" action-type="button" :show-loading="isSubmitting" :disabled="isSubmitting" @click.native="onSubmit">新建</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button type="warn" action-type="button" @click.native="reset">重置</x-button>
+        </flexbox-item>
+      </flexbox>
+    </group>
+  </div>
 </template>
 <script>
-var _ = require('lodash')
+import _ from 'lodash'
+import {
+  Group,
+  Cell,
+  PopupPicker,
+  Loading,
+  ButtonTab,
+  ButtonTabItem,
+  XInput,
+  Datetime,
+  XTextarea,
+  Flexbox,
+  FlexboxItem,
+  XButton,
+  dateFormat
+} from 'vux'
 export default {
   // name: 'AddItem',
   props: {},
   data() {
     return {
+      isLoading: true,
+      isSubmitting: false,
       item: {
-        category: null,
-        recordType: 1,
+        category: [],
+        recordType: 0,
         amount: 0,
         memo: '',
         desc: '',
-        datetime: Date.now()
+        datetime: dateFormat(new Date(), 'YYYY-MM-DD HH:mm')
       },
       categoryData: [],
     }
+  },
+  components: {
+    Group,
+    PopupPicker,
+    Cell,
+    Loading,
+    ButtonTab,
+    ButtonTabItem,
+    XInput,
+    Datetime,
+    XTextarea,
+    Flexbox,
+    FlexboxItem,
+    XButton
   },
   mounted() {
     this.$http.post('api/getCategories').then(response => {
       let res = response.body;
       if (res.Categories && res.Categories.length > 0) {
-        this.categoryData = res.Categories;
+        this.isLoading = false;
+        this.categoryData = _.map(res.Categories, c => {
+          return {
+            name: c.CategoryName,
+            value: c.CategoryID
+          }
+        });
       } else {
         //error
       }
@@ -67,35 +126,31 @@ export default {
   },
   methods: {
     checkData() {
-      if (!this.item.category) {
-        this.$message({
-          message: '类型不能为空！',
-          type: 'warning',
-          // duration: 3000
+      if (this.item.category.length == 0) {
+        this.$vux.toast.show({
+          text: '请选择分类！',
+          type: 'warn',
         });
         return false;
       }
       if (this.item.amount == 0) {
-        this.$message({
-          message: '金额不能为空！',
-          type: 'warning',
-          // duration: 3000
+        this.$vux.toast.show({
+          text: '请输入金额！',
+          type: 'warn',
         });
         return false;
       }
       if (!this.item.datetime) {
-        this.$message({
-          message: '时间不能为空！',
-          type: 'warning',
-          // duration: 3000
+        this.$vux.toast.show({
+          text: '请选择时间！',
+          type: 'warn',
         });
         return false;
       }
       if (!this.item.desc) {
-        this.$message({
-          message: '描述不能为空！',
-          type: 'warning',
-          // duration: 3000
+        this.$vux.toast.show({
+          text: '请输入描述！',
+          type: 'warn',
         });
         return false;
       }
@@ -103,13 +158,16 @@ export default {
     },
     onSubmit() {
       if (this.checkData()) {
-        this.$http.post('/api/save', { item: this.item }).then(response => {
+        this.$http.post('/api/save', {
+          item: _.assign({}, this.item, {
+            category: this.item.category[0]
+          })
+        }).then(response => {
           let res = response.body;
-          if(res.Success){
-            this.$message({
-              message:'新建成功！',
-              type:'success',
-              // duration: 3000
+          if (res.Success) {
+            this.$vux.toast.show({
+              text: '新建成功！',
+              type: 'success',
             });
             // this.reset();
           }
@@ -118,12 +176,12 @@ export default {
     },
     reset() {
       this.item = {
-        category: null,
-        recordType: 1,
+        category: [],
+        recordType: 0,
         amount: 0,
         memo: '',
         desc: '',
-        datetime: Date.now()
+        datetime: dateFormat(new Date(), 'YYYY-MM-DD HH:mm')
       }
     }
   }
@@ -164,6 +222,17 @@ export default {
 
 .box-card {
   /*width: 480px;*/
+}
+
+
+.vux-button-group,
+.vux-flexbox-item {
+  padding: 10px 35px;
+  /*border-bottom: 1px solid #D9D9D9;*/
+}
+
+.vux-flexbox {
+  /*margin: 10px 35px;*/
 }
 
 </style>

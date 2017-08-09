@@ -2,14 +2,14 @@
   <div class="wrapper">
     <template>
       <el-table :data="records" height="auto" border style="width: 100%" stripe>
-        <el-table-column label="操作" width="100">
+        <el-table-column label="操作" width="65">
           <template scope="scope">
             <el-button @click="removeRecord(scope.$index)" type="text" size="small">移除</el-button>
           </template>
         </el-table-column>
         <el-table-column prop="CategoryName" label="分类" width="100">
         </el-table-column>
-        <el-table-column prop="RecordType" label="收支类型" width="100">
+        <el-table-column prop="RecordType" label="收支类型" width="95">
         </el-table-column>
         <el-table-column prop="Amount" label="金额" width="100">
         </el-table-column>
