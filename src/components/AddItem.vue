@@ -1,44 +1,9 @@
 <template>
-  <!-- <el-form :model="item" label-width="80px" style="height: 100%;">
-    <div class="wrapper row column">
-      <div class="cell basis100 scroll">
-        <el-form-item label="分类">
-          <el-select v-model="item.category">
-            <el-option v-for="category in categoryData" :label="category.CategoryName" :value="category.CategoryID" :key="category.CategoryID"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="收支类型">
-          <el-radio-group v-model="item.recordType">
-            <el-radio :label="1">支出</el-radio>
-            <el-radio :label="2">收入</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="金额">
-          <el-input v-model.number="item.amount" type="number"></el-input>
-        </el-form-item>
-        <el-form-item label="时间">
-          <el-date-picker v-model="item.datetime" type="datetime" placeholder="选择日期时间"></el-date-picker>
-        </el-form-item>
-        <el-form-item label="详情">
-          <el-input type="textarea" v-model="item.desc"></el-input>
-        </el-form-item>
-        <el-form-item label="备忘">
-          <el-input type="textarea" v-model="item.memo"></el-input>
-        </el-form-item>
-      </div>
-      <div class="cell nogrow opt">
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">立即创建</el-button>
-          <el-button style="float: right;" type="danger" @click="reset">清除</el-button>
-        </el-form-item>
-      </div>
-    </div>
-  </el-form> -->
   <div>
     <div>
       <loading v-model="isLoading"></loading>
     </div>
-    <group v-if="!isLoading" label-width="4.5em" label-margin-right="2em" lable-align="right">
+    <group v-if="!isLoading" label-width="2em" label-margin-right="2em" lable-align="right">
       <button-tab v-model="item.recordType">
         <button-tab-item>支出</button-tab-item>
         <button-tab-item>收入</button-tab-item>
@@ -48,14 +13,16 @@
       <datetime title="时间" v-model="item.datetime" format="YYYY-MM-DD HH:mm" required></datetime>
       <x-textarea title="详情" v-model="item.desc" :max="200" :show-counter="false" :height="60" :rows="8" :cols="30"></x-textarea>
       <x-textarea title="备忘" v-model="item.memo" :max="200" :show-counter="false" :height="60" :rows="8" :cols="30"></x-textarea>
-      <flexbox>
-        <flexbox-item>
-          <x-button type="primary" action-type="button" :show-loading="isSubmitting" :disabled="isSubmitting" @click.native="onSubmit">新建</x-button>
-        </flexbox-item>
-        <flexbox-item>
-          <x-button type="warn" action-type="button" @click.native="reset">重置</x-button>
-        </flexbox-item>
-      </flexbox>
+      <cell>
+        <flexbox>
+          <flexbox-item>
+            <x-button type="primary" action-type="button" :show-loading="isSubmitting" :disabled="isSubmitting" @click.native="onSubmit">新建</x-button>
+          </flexbox-item>
+          <flexbox-item>
+            <x-button type="warn" action-type="button" @click.native="reset">重置</x-button>
+          </flexbox-item>
+        </flexbox>
+      </cell>
     </group>
   </div>
 </template>
@@ -225,8 +192,7 @@ export default {
 }
 
 
-.vux-button-group,
-.vux-flexbox-item {
+.vux-button-group {
   padding: 10px 35px;
   /*border-bottom: 1px solid #D9D9D9;*/
 }

@@ -1,8 +1,6 @@
 <template>
-  <div class="wrapper">
-    <div class="content">
-      <h1>{{ msg }}</h1>
-    </div>
+  <div class="content">
+    <h1>欢迎记账！</h1>
   </div>
 </template>
 <script>
@@ -10,7 +8,7 @@ export default {
   name: 'hello',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      // msg: 'Welcome to Your Vue.js App',
       count: 0
     }
   },
@@ -29,14 +27,8 @@ h2 {
   font-weight: normal;
 }
 
-.wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
 .content{
+  margin-top: 30px;
   text-align: center;
 }
 
