@@ -1,26 +1,6 @@
 <template>
   <Group class="wrapper">
-      <!-- <el-table :data="records" height="auto" border style="width: 100%" stripe>
-        <el-table-column label="操作" width="65">
-          <template scope="scope">
-            <el-button @click="removeRecord(scope.$index)" type="text" size="small">移除</el-button>
-          </template>
-        </el-table-column>
-        <el-table-column prop="CategoryName" label="分类" width="100">
-        </el-table-column>
-        <el-table-column prop="RecordType" label="收支类型" width="95">
-        </el-table-column>
-        <el-table-column prop="Amount" label="金额" width="100">
-        </el-table-column>
-        <el-table-column prop="RecordDate" label="时间" width="180">
-        </el-table-column>
-        <el-table-column prop="Description" label="详情">
-        </el-table-column>
-        <el-table-column prop="Memo" label="备忘">
-        </el-table-column>
-      </el-table> -->
-      <!-- <panel :list="recordsFormat" type="4"></panel> -->
-      <cell v-for="record in records" primary="content" value-align="left" :key="record">
+    <cell v-for="record in records" primary="content" value-align="left" :key="record.RecordID">
       <div class="row record">
         <div class="cell">
           <div class="row column">
@@ -31,56 +11,51 @@
           </div>
         </div>
         <div class="cell nogrow content">
-          <span class="amount" :class="{'out': record.RecordType == '支出'}">{{formatAmount(record)}}</span>
+          <span class="amount" :class="{'out': !record.IsIncome}">{{formatAmount(record)}}</span>
         </div>
       </div>
-      </cell>
+    </cell>
   </Group>
 </template>
 <script>
 import _ from 'lodash'
 import {
-  Group, Cell, numberComma
+  Group,
+  Cell,
+  numberComma
 } from 'vux'
+import {mapGetters, mapActions} from 'vuex'
 export default {
   name: 'Records',
   data() {
     return {
-      records: [],
+      // records: [],
     };
   },
   components: {
-    Group, Cell
+    Group,
+    Cell
   },
   mounted() {
-    this.$http.post('/api/getList').then(response => {
-      let res = response.body;
-      // var result = [];
-      // for (var i = 0; i < 5; i++) {
-      //   var clone = _.cloneDeep(res.Records);
-      //   result = _.concat(result, clone);
-      // }
-      // this.records = result;
-      this.records = res.Records;
-    }, response => {
-      //error cb
-    })
+    if(this.records.length == 0)
+      this.getAllRecords(() => {
+
+      });
   },
   computed: {
-    recordsFormat() {
-      return _.map(this.records, record => {
-        return {
-          title: (record.RecordType == '收入' ? '+' : '-') + numberComma(record.Amount.toFixed(2)),
-          desc: `${record.CategoryName}: ${record.Description}`,
-          meta: {
-            date: record.RecordDate,
-          }
-        }
-      })
-    }
+    ...mapGetters(['records']),
   },
   methods: {
-    formatAmount({RecordType, Amount}) {
+    // getRecords(cb) {
+    //   this.$http.post('/api/getList').then(response => {
+    //     let res = response.body;
+    //     this.updateRecords(res.Records);
+    //     typeof(cb) == 'function' && cb.call();
+    //   }, response => {
+    //     //error cb
+    //   })
+    // },
+    formatAmount({ RecordType, Amount }) {
       return (RecordType == '收入' ? '+' : '-') + numberComma(Amount.toFixed(2))
     },
     removeRecord(index) {
@@ -106,8 +81,8 @@ export default {
           message: '已取消删除'
         });
       });
-
-    }
+    },
+    ...mapActions(['updateRecords', 'getAllRecords'])
   }
 };
 
@@ -123,21 +98,22 @@ export default {
   height: 100%;
 }
 
-.row.record{
+.row.record {
   /*border-bottom: 1px solid #D9D9D9;*/
 }
 
-.row.record:active{
+.row.record:active {
   /*background-color: #ececec;*/
 }
 
-.amount{
+.amount {
   color: green;
   font-size: 30px;
   line-height: 2em;
 }
 
-.amount.out{
+.amount.out {
   color: #d02a2a;
 }
+
 </style>

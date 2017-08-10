@@ -13,15 +13,9 @@
       <datetime title="时间" v-model="item.datetime" format="YYYY-MM-DD HH:mm" required></datetime>
       <x-textarea title="详情" v-model="item.desc" :max="200" :show-counter="false" :height="60" :rows="8" :cols="30"></x-textarea>
       <x-textarea title="备忘" v-model="item.memo" :max="200" :show-counter="false" :height="60" :rows="8" :cols="30"></x-textarea>
-      <cell>
-        <flexbox>
-          <flexbox-item>
-            <x-button type="primary" action-type="button" :show-loading="isSubmitting" :disabled="isSubmitting" @click.native="onSubmit">新建</x-button>
-          </flexbox-item>
-          <flexbox-item>
-            <x-button type="warn" action-type="button" @click.native="reset">重置</x-button>
-          </flexbox-item>
-        </flexbox>
+      <cell primary="content">
+        <x-button type="primary" action-type="button" :show-loading="isSubmitting" :disabled="isSubmitting" @click.native="onSubmit">新建</x-button>
+        <x-button type="warn" action-type="button" @click.native="reset">重置</x-button>
       </cell>
     </group>
   </div>
@@ -43,6 +37,7 @@ import {
   XButton,
   dateFormat
 } from 'vux'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   // name: 'AddItem',
   props: {},
@@ -58,7 +53,6 @@ export default {
         desc: '',
         datetime: dateFormat(new Date(), 'YYYY-MM-DD HH:mm')
       },
-      categoryData: [],
     }
   },
   components: {
@@ -76,20 +70,17 @@ export default {
     XButton
   },
   mounted() {
-    this.$http.post('api/getCategories').then(response => {
-      let res = response.body;
-      if (res.Categories && res.Categories.length > 0) {
+    if (this.categoryData.length == 0) {
+      this.isLoading = true;
+      this.getCategories(() => {
         this.isLoading = false;
-        this.categoryData = _.map(res.Categories, c => {
-          return {
-            name: c.CategoryName,
-            value: c.CategoryID.toString()
-          }
-        });
-      } else {
-        //error
-      }
-    })
+      })
+    } else {
+      this.isLoading = false;
+    }
+  },
+  computed: {
+    ...mapGetters(['categoryData'])
   },
   methods: {
     checkData() {
@@ -125,21 +116,21 @@ export default {
     },
     onSubmit() {
       if (this.checkData()) {
-        this.$http.post('/api/save', {
-          item: _.assign({}, this.item, {
-            category: this.item.category[0],
-            recordType: this.item.recordType + 1
-          })
-        }).then(response => {
-          let res = response.body;
-          if (res.Success) {
-            this.$vux.toast.show({
-              text: '新建成功！',
-              type: 'success',
-            });
-            // this.reset();
+        var item = _.assign({}, this.item, {
+          category: this.item.category[0]
+        });
+        this.saveRecord({
+          data: { item },
+          cb: res => {
+            if (res.Success) {
+              this.$vux.toast.show({
+                text: '新建成功！',
+                type: 'success',
+              });
+              // this.reset();
+            }
           }
-        })
+        });
       }
     },
     reset() {
@@ -151,7 +142,8 @@ export default {
         desc: '',
         datetime: dateFormat(new Date(), 'YYYY-MM-DD HH:mm')
       }
-    }
+    },
+    ...mapActions(['getCategories', 'saveRecord'])
   }
 }
 
