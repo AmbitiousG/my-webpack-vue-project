@@ -9,7 +9,7 @@
         <button-tab-item>收入</button-tab-item>
       </button-tab>
       <popup-picker title="分类" show-name placeholder="请选择" :data="[categoryData]" v-model="item.category" value-text-align="left"></popup-picker>
-      <x-input title="金额" v-model="item.amount" type="number" required></x-input>
+      <x-input title="金额" v-model="item.amount" type="number" pattern="[0-9.]*" required></x-input>
       <datetime title="时间" v-model="item.datetime" format="YYYY-MM-DD HH:mm" required></datetime>
       <x-textarea title="详情" v-model="item.desc" :max="200" :show-counter="false" :height="60" :rows="8" :cols="30"></x-textarea>
       <x-textarea title="备忘" v-model="item.memo" :max="200" :show-counter="false" :height="60" :rows="8" :cols="30"></x-textarea>
