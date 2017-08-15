@@ -28,9 +28,6 @@ Vue.use(VueResource)
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-import ElementUI from 'element-ui'
-Vue.use(ElementUI)
-
 import App from './App_vux'
 import router from './router'
 import store from './store'
