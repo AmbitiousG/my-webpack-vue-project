@@ -6,5 +6,8 @@ export default {
   },
   [types.UPDATE_RECORDS] (state, records){
     state.records = records;
+  },
+  [types.UPDATE_USER] (state, user){
+    state.user = user;
   }
 }

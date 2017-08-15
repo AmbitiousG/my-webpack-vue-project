@@ -6,6 +6,7 @@ import actions from './actions'
 Vue.use(Vuex)
 
 const state = {
+  user: {},
   isLoading: false,
   direction: 'forward',
   records: [],

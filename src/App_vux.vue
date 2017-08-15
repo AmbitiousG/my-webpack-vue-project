@@ -7,6 +7,7 @@
       <div slot="drawer">
         <group title="菜单栏" style="margin-top:20px">
           <cell title="登录" link="/login" @click.native="hideDrawer"></cell>
+          <cell title="退出" link="/logout" @click.native="hideDrawer"></cell>
         </group>
       </div>
       <!-- main content -->

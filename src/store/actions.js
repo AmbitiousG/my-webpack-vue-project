@@ -7,10 +7,18 @@ export default {
   login: ({commit}, {data, cb}) => {
     userService.login(data,
       res => {
+        if(!res.error)
+          commit(types.UPDATE_USER, res)
         cb && cb(res);
       },
       () => {}
     );
+  },
+  logout: ({commit}, cb) => {
+      localStorage.clear();
+      Vue.http.headers.common['Authorization'] = '';
+      commit(types.UPDATE_USER, {});
+      cb && cb();
   },
   getCategories: ({ commit }, cb) => {
     recordsService.getCategories(

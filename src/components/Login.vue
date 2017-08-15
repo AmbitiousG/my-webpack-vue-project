@@ -38,7 +38,18 @@ export default {
       this.login({data: {
         username: this.username,
         password: this.password
-      }, cb: () => {
+      }, cb: res => {
+        if(res.error){
+          this.$vux.toast.show({
+            text: res.error,
+            type: 'warn',
+          });
+        }
+        else{
+          this.$router.push({
+            name: 'Hello'
+          })
+        }
       }});
     },
     ...mapActions(['login'])
