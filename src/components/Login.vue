@@ -1,6 +1,6 @@
 <template>
 <div>
-  <group label-width="3em" label-margin-right="2em" lable-align="right">
+  <group label-width="4em" label-margin-right="2em" lable-align="right">
     <x-input title="用户名" v-model="username" required></x-input>
     <x-input title="密码" v-model="password" type="password" required></x-input>
     <cell primary="content">
