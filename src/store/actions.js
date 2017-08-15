@@ -1,7 +1,17 @@
 import recordsService from '../api/records'
+import userService from '../api/user'
 import * as types from './mutation-types'
+import Vue from 'vue'
 
 export default {
+  login: ({commit}, {data, cb}) => {
+    userService.login(data,
+      res => {
+        cb && cb(res);
+      },
+      () => {}
+    );
+  },
   getCategories: ({ commit }, cb) => {
     recordsService.getCategories(
       categoryData => {

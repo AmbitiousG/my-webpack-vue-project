@@ -25,6 +25,10 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 
+var storage = window.localStorage;
+var token = storage.getItem('token') || '';
+Vue.http.headers.common['Authorization'] = 'Bearer ' + token;
+
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
@@ -46,9 +50,20 @@ Vue.use(BusPlugin)
 
 Vue.config.productionTip = false
 
+var isLoggedIn = () => {
+  var token = storage.getItem('token');
+  return !!token;
+}
+
 router.beforeEach(function (to, from, next) {
-  store.commit('updateLoadingStatus', {isLoading: true});
-  next();
+  // debugger;
+  if(to.fullPath !== '/' && to.path !== '/login' && !isLoggedIn()){
+    next({path: '/login'});
+  }
+  else{
+    store.commit('updateLoadingStatus', {isLoading: true});
+    next();
+  }
 })
 
 router.afterEach(function (to) {

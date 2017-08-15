@@ -45,6 +45,13 @@ export default new VueRouter({
       component(resolve) {
         require(['@/components/ComingSoon'], resolve)
       }
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component(resolve) {
+        require(['@/components/Login'], resolve)
+      }
     }
   ]
 })

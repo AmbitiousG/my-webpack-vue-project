@@ -50,7 +50,7 @@ compiler.plugin('compilation', function (compilation) {
 //   app.use(proxyMiddleware(options.filter || context, options))
 // })
 
-app.use(proxyMiddleware(['/api/**'], {
+app.use(proxyMiddleware(['/api/**', '/login/**'], {
   target: 'http://localhost:3000/',
   changeOrigin: true
 }));
