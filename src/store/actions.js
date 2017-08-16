@@ -2,6 +2,7 @@ import recordsService from '../api/records'
 import userService from '../api/user'
 import * as types from './mutation-types'
 import Vue from 'vue'
+import {logout} from '../utils/auth'
 
 export default {
   login: ({commit}, {data, cb}) => {
@@ -23,7 +24,7 @@ export default {
     );
   },
   logout: ({commit}, cb) => {
-      localStorage.clear();
+      logout();
       Vue.http.headers.common['Authorization'] = '';
       commit(types.UPDATE_USER, {});
       commit(types.CLEAR_DATA);

@@ -1,9 +1,17 @@
 import Vue from 'vue'
+import router from '../router'
 
 export default {
   getCategories: (cb, errorCb) => {
     Vue.http.post('api/getCategories').then(response => {
       let res = response.body;
+
+      if (res.errorCode == 1) {
+        router.push({
+          name: 'Login'
+        });
+        return;
+      }
       if (res.Categories && res.Categories.length > 0) {
         cb(_.map(res.Categories, c => {
           return {
@@ -11,7 +19,8 @@ export default {
             value: c.CategoryID.toString()
           }
         }));
-      } else {
+      }
+      else {
         errorCb && errorCb();
       }
     })
@@ -19,6 +28,13 @@ export default {
   getRecords: (data, cb, errorCb) => {
     Vue.http.post('/api/getList').then(response => {
       let res = response.body;
+
+      if (res.errorCode == 1) {
+        router.push({
+          name: 'Login'
+        });
+        return;
+      }
       cb(res.Records);
     }, response => {
       errorCb();
@@ -27,6 +43,13 @@ export default {
   saveRecord: (data, cb, errorCb) => {
     Vue.http.post('/api/save', data).then(response => {
       let res = response.body;
+
+      if (res.errorCode == 1) {
+        router.push({
+          name: 'Login'
+        });
+        return;
+      }
       cb && cb(res);
     }, response => {
       errorCb && errorCb();
