@@ -9,5 +9,9 @@ export default {
   },
   [types.UPDATE_USER] (state, user){
     state.user = user;
+  },
+  [types.CLEAR_DATA] (state, user){
+    state.records = [];
+    state.categoryData = [];
   }
 }

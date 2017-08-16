@@ -20,6 +20,9 @@ export default new Vuex.Store({
     },
     records: state => {
       return state.records;
+    },
+    user: state => {
+      return state.user;
     }
   },
   mutations: {

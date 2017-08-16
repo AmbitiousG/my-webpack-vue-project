@@ -57,7 +57,7 @@ var isLoggedIn = () => {
 
 router.beforeEach(function (to, from, next) {
   // debugger;
-  if(to.fullPath !== '/' && to.path !== '/login' && !isLoggedIn()){
+  if(to.fullPath !== '/' && to.path !== '/login' && to.path !== '/register' && !isLoggedIn()){
     next({path: '/login'});
   }
   else{

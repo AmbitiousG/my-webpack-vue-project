@@ -59,6 +59,13 @@ export default new VueRouter({
       component(resolve) {
         require(['@/components/Logout'], resolve)
       }
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component(resolve) {
+        require(['@/components/Register'], resolve)
+      }
     }
   ]
 })

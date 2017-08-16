@@ -5,8 +5,9 @@
     </div>
     <drawer :show.sync="drawerVisibility" width="200px;" show-mode="overlay" placement="left" :drawer-style="{'background-color':'#35495e', width: '200px'}">
       <div slot="drawer">
-        <group title="菜单栏" style="margin-top:20px">
+        <group :title="user.username || '未登陆！'" style="margin-top:20px">
           <cell title="登录" link="/login" @click.native="hideDrawer"></cell>
+          <cell title="注册" link="/register" @click.native="hideDrawer"></cell>
           <cell title="退出" link="/logout" @click.native="hideDrawer"></cell>
         </group>
       </div>
@@ -52,7 +53,7 @@ import {
   // XIcon,
 }
 from 'vux'
-import {mapState} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 export default {
   name: 'app',
   components: {
@@ -78,6 +79,7 @@ export default {
         return state.isLoading
       }
     }),
+    ...mapGetters(['user']),
     showDrawerIcon() {
       return this.$route.path === '/' || this.$route.path === '/component/drawer';
     },

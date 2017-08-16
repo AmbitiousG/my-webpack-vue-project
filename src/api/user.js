@@ -12,5 +12,13 @@ export default {
     }, response => {
       errorCb();
     })
+  },
+  register: (userInfo, cb, errorCb) => {
+    Vue.http.post('/login/register', userInfo).then(response => {
+      let res = response.body;
+      cb(res);
+    }, response => {
+      errorCb();
+    })
   }
 }

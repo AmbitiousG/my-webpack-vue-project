@@ -14,10 +14,19 @@ export default {
       () => {}
     );
   },
+  register: ({commit}, {data, cb}) => {
+    userService.register(data,
+      res => {
+        cb && cb(res);
+      },
+      () => {}
+    );
+  },
   logout: ({commit}, cb) => {
       localStorage.clear();
       Vue.http.headers.common['Authorization'] = '';
       commit(types.UPDATE_USER, {});
+      commit(types.CLEAR_DATA);
       cb && cb();
   },
   getCategories: ({ commit }, cb) => {
