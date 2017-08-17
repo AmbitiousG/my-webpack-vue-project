@@ -39,12 +39,20 @@ export default {
   saveRecord: (data, cb, errorCb) => {
     Vue.http.post('/api/save', data).then(response => {
       let res = response.body;
-      if (!res.errorCode) {
+      cb && cb(res);
+    }, response => {
+      errorCb && errorCb();
+    })
+  },
+  deleteRecord: (data, cb, errorCb) => {
+    Vue.http.post('/api/deleteRecord', data).then(response => {
+      let res = response.body;
+      // if (!res.errorCode) {
         cb && cb(res);
-      }
-      else{
-        cb && cb(res);
-      }
+      // }
+      // else{
+      //   cb && cb(res);
+      // }
     }, response => {
       errorCb && errorCb();
     })

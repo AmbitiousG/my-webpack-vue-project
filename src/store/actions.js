@@ -78,5 +78,25 @@ export default {
       },
       () => {}
     )
+  },
+  deleteRecord: ({commit, state}, {data, alert, cb}) => {
+    recordsService.deleteRecord(
+      data,
+      res => {
+        if(res.errorCode == 1){
+          alert.show({title: '请重新登录！', onHide: () => {
+            router.push({name: 'Login'});
+          }});
+        }
+        else if(res.errorCode > 0){
+          // alert.show()
+        }
+        else{
+          var records = state.records.filter(record => record.RecordID != data.recordID);
+          commit(types.UPDATE_RECORDS, records);
+          cb && cb(res);
+        }
+      }
+    )
   }
 };

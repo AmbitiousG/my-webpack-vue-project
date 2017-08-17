@@ -12,7 +12,7 @@
         </group>
       </div>
       <!-- main content -->
-      <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px">
+      <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="52px">
         <x-header slot="header" style="width:100%;position:absolute;left:0;top:0;z-index:100;" :left-options="leftOptions" :right-options="rightOptions" :title="title" @on-click-more="onClickMore">
           <span v-if="showDrawerIcon" slot="overwrite-left" @click="toggleDrawer">
               <x-icon type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;left:-3px;"></x-icon>
