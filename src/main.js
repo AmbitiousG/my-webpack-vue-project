@@ -15,27 +15,26 @@ import router from './router'
 import store from './store'
 
 // plugins
-import { BusPlugin, DatetimePlugin, LocalePlugin, DevicePlugin, ToastPlugin, AlertPlugin, ConfirmPlugin, LoadingPlugin, AppPlugin } from 'vux'
+import { BusPlugin, DatetimePlugin, DevicePlugin, ToastPlugin, AlertPlugin, ConfirmPlugin, LoadingPlugin, AppPlugin } from 'vux'
 
 Vue.use(DevicePlugin)
 Vue.use(ToastPlugin)
 Vue.use(AlertPlugin)
 Vue.use(ConfirmPlugin)
 Vue.use(LoadingPlugin)
-Vue.use(LocalePlugin)
 Vue.use(DatetimePlugin)
 Vue.use(BusPlugin)
 
 Vue.config.productionTip = false
 
 router.beforeEach(function (to, from, next) {
-  // if(to.fullPath !== '/' && to.path !== '/login' && to.path !== '/register' && !isLoggedIn()){
-  //   next({path: '/login'});
-  // }
-  // else{
+  if(to.fullPath !== '/' && to.path !== '/login' && to.path !== '/register' && !isLoggedIn()){
+    next({path: '/login'});
+  }
+  else{
     store.commit('updateLoadingStatus', {isLoading: true});
     next();
-  // }
+  }
 })
 
 router.afterEach(function (to) {
