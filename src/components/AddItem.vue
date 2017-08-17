@@ -72,9 +72,11 @@ export default {
   mounted() {
     if (this.categoryData.length == 0) {
       this.isLoading = true;
-      this.getCategories(() => {
+      this.getCategories({
+        alert: this.$vux.alert,
+        cb: () => {
         this.isLoading = false;
-      })
+      }})
     } else {
       this.isLoading = false;
     }
@@ -121,6 +123,7 @@ export default {
         });
         this.saveRecord({
           data: { item },
+          alert: this.$vux.alert,
           cb: res => {
             if (res.Success) {
               this.$vux.toast.show({

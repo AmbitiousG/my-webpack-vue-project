@@ -38,9 +38,11 @@ export default {
   },
   mounted() {
     if(this.records.length == 0)
-      this.getAllRecords(() => {
+      this.getAllRecords({
+        alert: this.$vux.alert,
+        cb:() => {
 
-      });
+      }});
   },
   computed: {
     ...mapGetters(['records']),

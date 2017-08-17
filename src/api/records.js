@@ -1,41 +1,37 @@
 import Vue from 'vue'
-import router from '../router'
 
 export default {
   getCategories: (cb, errorCb) => {
     Vue.http.post('api/getCategories').then(response => {
       let res = response.body;
-
-      if (res.errorCode == 1) {
-        router.push({
-          name: 'Login'
-        });
-        return;
+      if (!res.errorCode) {
+        if (res.Categories && res.Categories.length > 0) {
+          cb(_.map(res.Categories, c => {
+            return {
+              name: c.CategoryName,
+              value: c.CategoryID.toString()
+            }
+          }));
+        } else {
+          errorCb && errorCb();
+        }
       }
-      if (res.Categories && res.Categories.length > 0) {
-        cb(_.map(res.Categories, c => {
-          return {
-            name: c.CategoryName,
-            value: c.CategoryID.toString()
-          }
-        }));
+      else{
+        cb && cb(res);
       }
-      else {
-        errorCb && errorCb();
-      }
+    }, response => {
+      errorCb && errorCb();
     })
   },
   getRecords: (data, cb, errorCb) => {
     Vue.http.post('/api/getList').then(response => {
       let res = response.body;
-
-      if (res.errorCode == 1) {
-        router.push({
-          name: 'Login'
-        });
-        return;
+      if (!res.errorCode) {
+        cb(res.Records);
       }
-      cb(res.Records);
+      else{
+        cb && cb(res);
+      }
     }, response => {
       errorCb();
     })
@@ -43,14 +39,12 @@ export default {
   saveRecord: (data, cb, errorCb) => {
     Vue.http.post('/api/save', data).then(response => {
       let res = response.body;
-
-      if (res.errorCode == 1) {
-        router.push({
-          name: 'Login'
-        });
-        return;
+      if (!res.errorCode) {
+        cb && cb(res);
       }
-      cb && cb(res);
+      else{
+        cb && cb(res);
+      }
     }, response => {
       errorCb && errorCb();
     })
