@@ -66,6 +66,13 @@ export default new VueRouter({
       component(resolve) {
         require(['@/components/Register'], resolve)
       }
+    },
+    {
+      path: '/chat',
+      name: 'Chat',
+      component(resolve) {
+        require(['@/components/Chat'], resolve)
+      }
     }
   ]
 })

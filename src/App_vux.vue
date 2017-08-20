@@ -35,6 +35,10 @@
             <span class="demo-icon-22" slot="icon">&#xe630;</span>
             <span slot="label">所有记录</span>
           </tabbar-item>
+          <tabbar-item :link="{path:'/chat'}" :selected="$route.path === '/chat'">
+            <span class="demo-icon-22" slot="icon">&#xe630;</span>
+            <span slot="label">聊天</span>
+          </tabbar-item>
         </tabbar>
       </view-box>
     </drawer>
