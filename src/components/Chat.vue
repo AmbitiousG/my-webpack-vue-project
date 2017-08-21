@@ -45,15 +45,21 @@ export default {
     // alert(token)
     var socket = io.connect('http://localhost:3000', {
       // 'path': '/',
-      'query': `token=${token}`
+      query: `token=${token}`,
+      transports: ['websocket']
     });
-    socket.on("unauthorized", function(error) {
+    socket.on("invalid_token", function(error) {
       if (error.data.type == "UnauthorizedError" || error.data.code == "invalid_token") {
         // redirect user to login page perhaps?
         console.log("User's token has expired");
       }
     });
-    console.log(io)
+    socket.on("UnauthorizedError", function(error) {
+      if (error.data.type == "UnauthorizedError" || error.data.code == "invalid_token") {
+        // redirect user to login page perhaps?
+        console.log("User's token has expired");
+      }
+    });
   }
 }
 
