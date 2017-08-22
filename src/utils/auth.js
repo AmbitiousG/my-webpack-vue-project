@@ -17,7 +17,7 @@ function clearIdToken() {
 
 // Get and store id_token in local storage
 export function setIdToken(idToken) {
-  localStorage.setItem(ID_TOKEN_KEY, idToken);
+  localStorage.setItem(ID_TOKEN_KEY, idToken || '');
 }
 
 export function isLoggedIn() {
