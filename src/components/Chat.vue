@@ -60,7 +60,7 @@ export default {
     var token = getIdToken() || '';
     if(this.socket)
       this.socket.close();
-    this.socket = io.connect('http://localhost:3000', {
+    this.socket = io.connect({
       query: `token=${token}`,
       transports: ['websocket']
     });

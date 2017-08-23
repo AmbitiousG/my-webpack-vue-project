@@ -7,7 +7,7 @@ import {
 }
 from '../utils/auth'
 
-Vue.use(Vuex)
+!window.Vue && Vue.use(Vuex)
 var user = getUserFromToken();
 
 const state = {

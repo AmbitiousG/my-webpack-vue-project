@@ -6,7 +6,6 @@ import Profile from '@/components/Profile'
 // var Vue = window.Vue || require('vue').default;
 // var VueRouter = window.VueRouter || require('vue-router').default;
 
-Vue.use(VueRouter)
 export default new VueRouter({
   mode: 'history',
   routes: [{

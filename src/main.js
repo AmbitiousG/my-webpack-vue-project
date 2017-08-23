@@ -7,8 +7,11 @@ var token = getIdToken();
 if(token)
   Vue.http.headers.common['Authorization'] = `Bearer ${token}`;
 
-import Vuex from 'vuex'
-Vue.use(Vuex)
+// import Vuex from 'vuex'
+// Vue.use(Vuex)
+
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
 
 import App from './App_vux'
 import router from './router'
