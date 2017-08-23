@@ -1,4 +1,5 @@
 <template>
+<div>
   <form @submit="onSubmit">
     <div class="row column wrapper">
       <div class="cell basis100">
@@ -19,6 +20,7 @@
       </div>
     </div>
   </form>
+  </div>
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
@@ -111,7 +113,12 @@ export default {
 
 </script>
 <style scoped>
-form,
+form{
+    position: absolute;
+    width: 100%;
+    top: 46px;
+    bottom: 52px;
+}
 .wrapper{
   height: 100%;
 }
